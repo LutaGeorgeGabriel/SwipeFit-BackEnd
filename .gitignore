@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+.DS_Store
+.idea/libraries/
+.idea/workspace.xml
+src/.DS_Store
+src/main/.DS_Store
+src/test/
+target/
+classes/
+generated-sources/
+gs-rest-service-0.1.0.jar
+gs-rest-service-0.1.0.jar.original
+maven-archiver/
+maven-status/
+workspace.xml
