@@ -1,13 +1,12 @@
 package swipefit;
 
 import org.json.simple.parser.ParseException;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by georgegabriel on 22/07/2017.
@@ -15,8 +14,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class DataController {
+
+    private static double[] info = null;
+
     @RequestMapping(value = "/swipeFitProducts", method = RequestMethod.GET)
-    public String greeting(@RequestParam(value="product", defaultValue="clothing") String product) {
+    public String fetchData() {
         try {
             return new Data().getData("data.json");
         } catch (IOException e) {
@@ -27,5 +29,9 @@ public class DataController {
         return "Error occured";
     }
 
+    @RequestMapping(value = "/swipeFitProducts",method = RequestMethod.POST)
+    public void fetchProductsInformation(@RequestBody double[] productsInformation) {
+        info = productsInformation;
+    }
 }
 
