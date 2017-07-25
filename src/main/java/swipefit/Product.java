@@ -10,9 +10,18 @@ public class Product {
 
     private String retailer;
 
-    private String price;
+    private double price;
 
-    private String ID;
+    private int ID;
+
+    public Product(int ID, String imageUrl,String name, String siteURL, String retailer, double price) {
+        this.ID = ID;
+        this.imageUrl = imageUrl;
+        this.name = name;
+        this.siteURL = siteURL;
+        this.retailer = retailer;
+        this.price = price;
+    }
 
     public String getName() {
         return name;
@@ -46,19 +55,19 @@ public class Product {
         this.retailer = retailer;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 }
