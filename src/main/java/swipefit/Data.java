@@ -33,4 +33,13 @@ public class Data {
         }
         return result.toString();
     }
+
+    // this is how we call the R script in the app - as a process
+
+    /*public class Main {
+        public static void main(String[] args) throws IOException {
+            Process p;
+            p = Runtime.getRuntime().exec("R CMD BATCH /Users/georgegabriel/Documents/js/testing/src/main/resources/test.R");
+        }
+    }*/
 }
