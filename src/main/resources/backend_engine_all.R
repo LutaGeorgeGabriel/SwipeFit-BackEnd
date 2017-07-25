@@ -70,4 +70,4 @@ for (i in 1:N)
 write.csv(m_suggested, '/Users/georgegabriel/Documents/machine_learning/m_suggested.csv')
 
 # export to txt file
-write.table(m_suggested, file="./Documents/machine_learning/mymatrix.txt", row.names=FALSE, col.names=FALSE)
+write.table(m_suggested, file="/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/mymatrix.txt", row.names=FALSE, col.names=FALSE)
