@@ -13,7 +13,7 @@ public class SQLiteJDBCDriverConnection {
 
     public static Connection connectDb() throws ClassNotFoundException,SQLException {
         Class.forName("org.sqlite.JDBC");
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/georgegabriel/Documents/tools/sqlite/database.db");
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db");
         return conn;
     }
     /**
