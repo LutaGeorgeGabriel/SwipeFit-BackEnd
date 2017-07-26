@@ -4,9 +4,9 @@ public class Product {
 
     private String name;
 
-    private String imageUrl;
+    private String url;
 
-    private String siteURL;
+    private String site;
 
     private String retailer;
 
@@ -14,13 +14,13 @@ public class Product {
 
     private int ID;
 
-    public Product(int ID, String imageUrl,String name, String siteURL, String retailer, double price) {
-        this.ID = ID;
-        this.imageUrl = imageUrl;
+    public Product(String url, String name, String site, String retailer, double price, int ID) {
+        this.url = url;
         this.name = name;
-        this.siteURL = siteURL;
+        this.site = site;
         this.retailer = retailer;
         this.price = price;
+        this.ID = ID;
     }
 
     public String getName() {
@@ -31,20 +31,20 @@ public class Product {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getSiteURL() {
-        return siteURL;
+    public String getSite() {
+        return site;
     }
 
-    public void setSiteURL(String siteURL) {
-        this.siteURL = siteURL;
+    public void setSite(String site) {
+        this.site = site;
     }
 
     public String getRetailer() {
