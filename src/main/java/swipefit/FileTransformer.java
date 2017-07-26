@@ -17,9 +17,9 @@ public class FileTransformer {
 
     // reads the data from input.txt
 
-    public static List<String[]> readMatrix() throws IOException {
+    public static List<String[]> readMatrix(String file) throws IOException {
         CSVReader input = new CSVReader(
-                new FileReader("input.txt"), ' ');
+                new FileReader(file), ' ');
         // Read all rows at once
 
         List<String[]> allRows = input.readAll();
