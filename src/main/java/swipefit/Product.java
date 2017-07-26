@@ -1,5 +1,6 @@
 package swipefit;
 
+// this class should be identical to the one in android studio
 public class Product {
 
     private String name;
