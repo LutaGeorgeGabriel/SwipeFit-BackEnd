@@ -31,6 +31,13 @@ public class Database2JSON {
 
     public static List<Product> getListOfProducts(){
 
+        try {
+            connectDb();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         List<Product> products = new ArrayList<>();
         String sql = "SELECT id, url, name, site, retailer, price  FROM PRODUCTS";
 
@@ -52,12 +59,12 @@ public class Database2JSON {
                         rs.getString("retailer") + "\t" +
                         rs.getDouble("price"));
 
-                products.add(new Product(rs.getInt("id"),
-                        rs.getString("url"),
+                products.add(new Product(rs.getString("url"),
                         rs.getString("name"),
                         rs.getString("site"),
                         rs.getString("retailer"),
-                        rs.getDouble("price")));
+                        rs.getDouble("price"),
+                        rs.getInt("id")));
             }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
