@@ -18,6 +18,7 @@ public class InputMatrixManager {
     public static void generateOtherUsersBehaviour() {
         Process p;
         try {
+§            // maybe call this from another Program ??
             p = Runtime.getRuntime().exec("R CMD BATCH /Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/usersData.R");
         } catch (IOException e) {
             e.printStackTrace();
