@@ -52,7 +52,7 @@ The following object is masked from ‘package:NMF’:
 
 > 
 > N <- 20
-> P <- 10
+> P <- 15
 > 
 > # We create an empty matrix (all zeros)
 > # dim(m) = 20 users x 10 products
@@ -98,4 +98,4 @@ The following object is masked from ‘package:NMF’:
 > 
 > proc.time()
    user  system elapsed 
-  1.298   0.066   1.367 
+  1.631   0.104   1.782 
