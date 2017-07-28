@@ -1,0 +1,101 @@
+
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> # Title     : TODO
+> # Objective : TODO
+> # Created by: georgegabriel
+> # Created on: 28/07/2017
+> 
+> require(NMF)
+Loading required package: NMF
+Loading required package: pkgmaker
+Loading required package: registry
+
+Attaching package: ‘pkgmaker’
+
+The following object is masked from ‘package:base’:
+
+    isNamespaceLoaded
+
+Loading required package: rngtools
+Loading required package: cluster
+NMF - BioConductor layer [NO: missing Biobase] | Shared memory capabilities [OK] | Cores 3/4
+  To enable the Bioconductor layer, try: install.extras('
+NMF
+') [with Bioconductor repository enabled]
+> require(FNN)
+Loading required package: FNN
+
+Attaching package: ‘FNN’
+
+The following object is masked from ‘package:NMF’:
+
+    entropy
+
+> 
+> N <- 20
+> P <- 10
+> 
+> # We create an empty matrix (all zeros)
+> # dim(m) = 20 users x 10 products
+> m <- matrix(data = 0, nrow = N, ncol = P)
+> 
+> m <- read.table(file = "/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/otherUsersData.txt")
+> 
+> # calculate the matrix decomposition for m
+> # the rank parameter to be chosen based on the number of columns (products) in matrix m
+> # it represents the number of meta-features that describe a user or a product
+> f <- nmf(m, rank = 3, method = 'lee')
+> 
+> # extract the user-feature and product-feature matrices
+> a <- basis(f)
+> b <- coef(f)
+> 
+> 
+> # which are the closest other k users similar to each user
+> kn <- get.knnx(a, query = a, k = 10)
+> 
+> m_suggested <- matrix(0, nrow = N, ncol = P)
+> 
+> # which are the preferences of those kn closest neighbor users to user u ?
+> for (i in 1:N)
++ {
++     # calculate preference means for each user
++     km <- colMeans(m[setdiff(kn$nn.index[i, ], i), ])
++ 
++     # replace already seen products with 0 and unseen products with their suggested score
++     sugg <- ifelse(m[i, ] == 0.5, km, 0)
++ 
++     # sort suggested products by the decreasing score
++     m_suggested[i, ] <- order(sugg, decreasing = T)
++ }
+> 
+> 
+> # m_suggested matrix contains pre-calculated suggestions for all users.
+> # row X means that user X should be shown product IDs in this order
+> 
+> # we write the m_suggested matrix to disk so it can be pre-loaded into the frontend application
+> write.table(m_suggested, file="/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/ml_output.txt", row.names=FALSE, col.names=FALSE)
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  1.298   0.066   1.367 
