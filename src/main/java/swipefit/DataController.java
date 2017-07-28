@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static swipefit.InputMatrixManager.generateOtherUsersBehaviour;
 
@@ -21,29 +22,28 @@ public class DataController {
 
     private static double[] info = null;
     private static HashMap<String,String> productsInformation = new HashMap<>();
+    private static boolean INITIAL_DATA_FLAG = true;
 
-    public static String[] getLikesAndDislikes() {
-
-        List<String> likesAndDislikesList = new ArrayList<>();
-
-        Iterator it = productsInformation.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            likesAndDislikesList.add(pair.getValue().toString());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-
-        String[] likesAndDislikesArray = likesAndDislikesList.toArray(new String[10]);
-        return likesAndDislikesArray;
+    public static void setInitialDataFlag(boolean initialDataFlag) {
+        INITIAL_DATA_FLAG = initialDataFlag;
     }
+
+    public static HashMap<String, String> getProductsInformation() {
+        return productsInformation;
+    }
+
+
 
     // --------------- TEST data
 
     @RequestMapping(value = "/swipeFitProducts", method = RequestMethod.GET)
     public String fetchData() {
         //return new Data().getData("data.json");
-        return Database2JSON.getJsonFromListOfProducts(Database2JSON.getListOfProducts());
+        if(INITIAL_DATA_FLAG) {
+            INITIAL_DATA_FLAG = false;
+            return Database2JSON.getJsonFromListOfProducts(Database2JSON.getListOfProducts());
+        }
+        return Database2JSON.getJsonFromListOfProducts(Database2JSON.getListOfRecommendedProducts());
     }
 
     @RequestMapping(value = "/swipeFitProducts",method = RequestMethod.POST)
