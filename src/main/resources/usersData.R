@@ -4,7 +4,7 @@
 # Created on: 26/07/2017
 
 N <- 19
-P <- 10
+P <- 15
 
 # We create an empty matrix (all zeros)
 # dim(m) = 200 users x 50 products

@@ -7,7 +7,7 @@ require(NMF)
 require(FNN)
 
 N <- 20
-P <- 10
+P <- 15
 
 # We create an empty matrix (all zeros)
 # dim(m) = 20 users x 10 products
