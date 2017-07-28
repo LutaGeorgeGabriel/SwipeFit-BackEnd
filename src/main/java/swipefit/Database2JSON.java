@@ -52,13 +52,6 @@ public class Database2JSON {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getInt("id") +  "\t" +
-                        rs.getString("url") + "\t" +
-                        rs.getString("name") + "\t" +
-                        rs.getString("site") + "\t" +
-                        rs.getString("retailer") + "\t" +
-                        rs.getDouble("price"));
-
                 products.add(new Product(rs.getString("url"),
                         rs.getString("name"),
                         rs.getString("site"),
@@ -77,4 +70,53 @@ public class Database2JSON {
         String jsonlistOfProducts = gson.toJson(products);
         return jsonlistOfProducts;
     }
+
+    public static List<Product> getListOfRecommendedProducts() {
+        List<Product> productList = new ArrayList<>();
+        String[] products = InputMatrixManager.getRecommendedIDs();
+        try {
+            connectDb();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT id, url, name, site, retailer, price  FROM PRODUCTS WHERE id IN" + constructArrayOfProducts(products);
+
+        try {Connection connection = null;
+            // db parameters
+            String url = "jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db";
+            // create a connection to the database
+
+            connection = DriverManager.getConnection(url);
+            Statement statement  = connection.createStatement();
+            ResultSet rs  = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                productList.add(new Product(rs.getString("url"),
+                        rs.getString("name"),
+                        rs.getString("site"),
+                        rs.getString("retailer"),
+                        rs.getDouble("price"),
+                        rs.getInt("id")));
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return productList;
+    }
+
+    public static String constructArrayOfProducts(String[] products) {
+        StringBuilder result = new StringBuilder();
+        result.append("(");
+        for (int i = 0; i < products.length;i++) {
+            result.append(products[i]);
+            if(i != products.length - 1)
+                result.append(",");
+        }
+        result.append(")");
+        return result.toString();
+    }
+
 }
