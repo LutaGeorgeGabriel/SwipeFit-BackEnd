@@ -82,24 +82,27 @@ public class Database2JSON {
             e.printStackTrace();
         }
 
-        String sql = "SELECT id, url, name, site, retailer, price  FROM PRODUCTS WHERE id IN" + constructArrayOfProducts(products);
-
-        try {Connection connection = null;
+        Connection connection = null;
             // db parameters
             String url = "jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db";
             // create a connection to the database
-
+        try {
             connection = DriverManager.getConnection(url);
-            Statement statement  = connection.createStatement();
-            ResultSet rs  = statement.executeQuery(sql);
+            Statement statement = connection.createStatement();
 
-            while (rs.next()) {
-                productList.add(new Product(rs.getString("url"),
-                        rs.getString("name"),
-                        rs.getString("site"),
-                        rs.getString("retailer"),
-                        rs.getDouble("price"),
-                        rs.getInt("id")));
+            for (int index = 0; index < products.length; index++) {
+                String sql = "SELECT id, url, name, site, retailer, price  FROM PRODUCTS WHERE id=" + products[index];
+
+                ResultSet rs = statement.executeQuery(sql);
+
+                while (rs.next()) {
+                    productList.add(new Product(rs.getString("url"),
+                            rs.getString("name"),
+                            rs.getString("site"),
+                            rs.getString("retailer"),
+                            rs.getDouble("price"),
+                            rs.getInt("id")));
+                }
             }
         }catch (SQLException e) {
             System.out.println(e.getMessage());
