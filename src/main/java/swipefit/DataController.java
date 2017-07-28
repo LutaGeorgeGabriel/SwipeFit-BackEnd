@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static swipefit.InputMatrixManager.generateOtherUsersBehaviour;
+import static swipefit.InputMatrixManager.runRecommendationEngine;
 
 /**
  * Created by georgegabriel on 22/07/2017.
@@ -60,6 +61,7 @@ public class DataController {
     public void dataFromAndroidTest(@RequestBody String json) {
         requestHandler(json);
         generateOtherUsersBehaviour();
+        runRecommendationEngine();
     }
 
     public void requestHandler(String json) {
