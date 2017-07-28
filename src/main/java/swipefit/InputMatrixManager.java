@@ -28,7 +28,7 @@ public class InputMatrixManager {
         }
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -91,8 +91,13 @@ public class InputMatrixManager {
         return users.get(users.size()-1);
     }
 
-
-
-
-
+    public static void runRecommendationEngine() {
+        Process p;
+        try {
+            // maybe call this from another Program ??
+            p = Runtime.getRuntime().exec("R CMD BATCH /Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/backend_engine.R");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
