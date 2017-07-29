@@ -71,4 +71,12 @@ public class Product {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    /*I did override method equals to be used with contains() method
+    from List<T> so that I can compare objects using their IDs before
+    inserting a new row in the favorites table in database*/
+    @Override
+    public boolean equals(Object obj) {
+        return String.valueOf(((Product) obj).getID()).equals(String.valueOf(this.getID()));
+    }
 }
