@@ -29,6 +29,41 @@ public class Database2JSON {
         return conn;
     }
 
+    public static List<Product> getListOfFavorites() {
+        try {
+            connectDb();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM FAVORITES";
+
+        try {Connection conn = null;
+            // db parameters
+            String url = "jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db";
+            // create a connection to the database
+
+            conn = DriverManager.getConnection(url);
+            Statement stmt  = conn.createStatement();
+            ResultSet rs    = stmt.executeQuery(sql);
+
+            // loop through the result set
+            while (rs.next()) {
+                products.add(new Product(rs.getString("url"),
+                        rs.getString("name"),
+                        rs.getString("site"),
+                        rs.getString("retailer"),
+                        rs.getDouble("price"),
+                        rs.getInt("id")));
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return products;
+    }
+
     public static List<Product> getListOfProducts(){
 
         try {
