@@ -88,6 +88,11 @@ public class DataController {
         runRecommendationEngine();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getFavoriteItems")
+    public String fetchFavorites() {
+        return Database2JSON.getJsonFromListOfProducts(Database2JSON.getListOfFavorites());
+    }
+
     // --------------- HELPER METHODS
 
     @RequestMapping(method = RequestMethod.POST, value = "/postUserFavorites")
