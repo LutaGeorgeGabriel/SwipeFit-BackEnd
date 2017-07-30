@@ -50,3 +50,5 @@ for (i in 1:N)
 # we write the m_suggested matrix to disk so it can be pre-loaded into the frontend application
 write.table(m_suggested, file="/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/ml_output.txt", row.names=FALSE, col.names=FALSE)
 
+# we write the 10 nearest neighbours of the current user to a file
+write.table(kn$nn.index[20, ],file="/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/currentUsersNearNeighbours.txt",row.names = FALSE, col.names = FALSE)
