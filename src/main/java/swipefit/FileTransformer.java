@@ -4,8 +4,8 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.List;
 
 /**
@@ -27,24 +27,26 @@ public class FileTransformer {
         return allRows;
     }
 
-    public static void writeMatrix(List<String[]> data) {
-        StringWriter writer = new StringWriter();
-
-        List<Product> products;
-
-        //List<String[]> data = toStringArray(emps);
-        //TODO cauta in articol: http://www.journaldev.com/12014/opencsv-csvreader-csvwriter-example
-
-        CSVWriter output = new CSVWriter(writer,' ',' ',"\n");
-
-        output.writeAll(data);
-
+    public static void writeMatrix(List<String[]> users) {
+        FileWriter fileWriter = null;
         try {
-            output.close();
+            fileWriter = new FileWriter("/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/otherUsersData.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //using custom delimiter and quote character
+        CSVWriter csvWriter = new CSVWriter(fileWriter, ' ', ' ', "\n");
+        csvWriter.writeAll(users);
+        try {
+            fileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println(writer);
+        try {
+            csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

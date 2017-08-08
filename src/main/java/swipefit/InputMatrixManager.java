@@ -1,8 +1,5 @@
 package swipefit;
 
-import com.opencsv.CSVWriter;
-
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,33 +40,35 @@ public class InputMatrixManager {
 
         users.add(getLikesAndDislikes());
 
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter("/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/otherUsersData.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //using custom delimiter and quote character
-        CSVWriter csvWriter = new CSVWriter(fileWriter,' ', ' ', "\n");
-        csvWriter.writeAll(users);
-        try {
-            fileWriter.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        FileWriter fileWriter = null;
+//        try {
+//            fileWriter = new FileWriter("/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/otherUsersData.txt");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        //using custom delimiter and quote character
+//        CSVWriter csvWriter = new CSVWriter(fileWriter,' ', ' ', "\n");
+//        csvWriter.writeAll(users);
+//        try {
+//            fileWriter.flush();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            csvWriter.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            csvWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FileTransformer.writeMatrix(users);
     }
 
     public static String[] getLikesAndDislikes() {
 
         List<String> likesAndDislikesList = new ArrayList<>();
 
-        Iterator it = DataController.getProductsInformation().entrySet().iterator();
+        Iterator it = Data.getUserBehaviour().entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());

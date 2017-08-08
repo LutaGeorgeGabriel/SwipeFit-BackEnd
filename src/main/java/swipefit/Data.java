@@ -1,45 +1,24 @@
 package swipefit;
 
-
-import org.json.simple.parser.ParseException;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-
-/**
- * Created by georgegabriel on 22/07/2017.
- */
+import java.util.HashMap;
 
 public class Data {
-    public String getData(String filePath) throws IOException, ParseException {
+    private static HashMap<String,String> userBehaviour = new HashMap<>();
+    private static boolean INITIAL_DATA_FLAG = true;
 
-        StringBuilder result = new StringBuilder("");
-
-        //Get file from resources folder
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filePath).getFile());
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                result.append(line).append("\n");
-            }
-
-            scanner.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result.toString();
+    public static boolean isInitialDataFlag() {
+        return INITIAL_DATA_FLAG;
     }
 
-    // this is how we call the R script in the app - as a process
+    public static void setInitialDataFlag(boolean initialDataFlag) {
+        INITIAL_DATA_FLAG = initialDataFlag;
+    }
 
-    /*public class Main {
-        public static void main(String[] args) throws IOException {
-            Process p;
-            p = Runtime.getRuntime().exec("R CMD BATCH /Users/georgegabriel/Documents/js/testing/src/main/resources/test.R");
-        }
-    }*/
+    public static HashMap<String, String> getUserBehaviour() {
+        return userBehaviour;
+    }
+
+    public static void setUserBehaviour(HashMap<String, String> behaviour) {
+        userBehaviour = behaviour;
+    }
 }

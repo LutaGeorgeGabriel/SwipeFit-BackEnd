@@ -11,18 +11,6 @@ import java.util.List;
  */
 public class Database2JSON {
 
-    public static void main(String[] args) {
-        try {
-            connectDb();
-            System.out.printf(getJsonFromListOfProducts(getListOfProducts()));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public static Connection connectDb() throws ClassNotFoundException,SQLException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db");
