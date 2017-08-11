@@ -96,7 +96,7 @@ public class Database2JSON {
 
     public static List<Product> getListOfRecommendedProducts() {
         List<Product> productList = new ArrayList<>();
-        String[] products = InputMatrixManager.getRecommendedIDs();
+        String[] products = MatrixManager.getRecommendedIDs();
         try {
             connectDb();
         } catch (ClassNotFoundException e) {
