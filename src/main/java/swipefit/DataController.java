@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static swipefit.Data.isInitialDataFlag;
 import static swipefit.Data.setInitialDataFlag;
+import static swipefit.JSON2Database.deleteFavoriteItemFromDB;
 import static swipefit.JSON2Database.pushFavorites2Database;
 import static swipefit.MatrixManager.generateOtherUsersBehaviour;
 import static swipefit.MatrixManager.runRecommendationEngine;
@@ -50,6 +51,11 @@ public class DataController {
     @RequestMapping(method = RequestMethod.POST, value = "/postFavorites")
     public void fetchFavorites(@RequestBody String json) {
         pushFavorites2Database(loadFavorites(json));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/deleteItem")
+    public void deleteFavoriteItem(@RequestBody String json) {
+        deleteFavoriteItemFromDB(json);
     }
 
 }
