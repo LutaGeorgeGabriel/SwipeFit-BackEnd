@@ -35,6 +35,7 @@ public class MatrixManager {
             previousMap = new ArrayList<String>(Arrays.asList(getLikesAndDislikes(map)));
             String[] previous = new String[previousMap.size()];
             flag=false;
+            System.out.println(previousMap.toString());
             users.add(previousMap.toArray(previous));
             FileTransformer.writeMatrix(users);
         } else {
@@ -44,6 +45,7 @@ public class MatrixManager {
                     currentMap.set(i,previousMap.get(i));
             }
             String[] current = new String[currentMap.size()];
+            System.out.println(currentMap.toString());
             users.add(currentMap.toArray(current));
             previousMap = currentMap;
             FileTransformer.writeMatrix(users);
