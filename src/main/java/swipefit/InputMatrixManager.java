@@ -8,9 +8,11 @@ import java.util.*;
  */
 public class InputMatrixManager {
 
+    public static boolean flag = true;
     /*public static void main(String[] args) {
         generateOtherUsersBehaviour();
     }*/
+    private static ArrayList<String> previousMap = new ArrayList<>();
 
     public static void generateOtherUsersBehaviour(HashMap<Integer,String> map) {
         Process p;
@@ -35,7 +37,28 @@ public class InputMatrixManager {
             e.printStackTrace();
         }
 
-        users.add(getLikesAndDislikes(map));
+
+        if(flag) {
+            previousMap = new ArrayList<String>(Arrays.asList(getLikesAndDislikes(map)));
+            String[] previous = new String[previousMap.size()];
+            flag=false;
+            users.add(previousMap.toArray(previous));
+            FileTransformer.writeMatrix(users);
+        } else {
+            ArrayList<String> currentMap = new ArrayList<>(Arrays.asList(getLikesAndDislikes(map)));
+            for(int i = 0; i < currentMap.size(); i++) {
+                if(currentMap.get(i).equals("0.5"))
+                    currentMap.set(i,previousMap.get(i));
+            }
+            String[] current = new String[currentMap.size()];
+            users.add(currentMap.toArray(current));
+            previousMap = currentMap;
+            FileTransformer.writeMatrix(users);
+        }
+
+
+
+        //users.add(getLikesAndDislikes(map));
 
 //        FileWriter fileWriter = null;
 //        try {
@@ -58,7 +81,7 @@ public class InputMatrixManager {
 //            e.printStackTrace();
 //        }
 
-        FileTransformer.writeMatrix(users);
+
     }
 
     public static String[] getLikesAndDislikes(HashMap<Integer,String> map) {
@@ -73,7 +96,7 @@ public class InputMatrixManager {
             it.remove(); // avoids a ConcurrentModificationException
         }
 
-        String[] likesAndDislikesArray = likesAndDislikesList.toArray(new String[10]);
+        String[] likesAndDislikesArray = likesAndDislikesList.toArray(new String[15]);
         return likesAndDislikesArray;
     }
 
