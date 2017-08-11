@@ -1,10 +1,7 @@
 package swipefit;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by georgegabriel on 26/07/2017.
@@ -15,7 +12,7 @@ public class InputMatrixManager {
         generateOtherUsersBehaviour();
     }*/
 
-    public static void generateOtherUsersBehaviour() {
+    public static void generateOtherUsersBehaviour(HashMap<Integer,String> map) {
         Process p;
         try {
             // maybe call this from another Program ??
@@ -38,7 +35,7 @@ public class InputMatrixManager {
             e.printStackTrace();
         }
 
-        users.add(getLikesAndDislikes());
+        users.add(getLikesAndDislikes(map));
 
 //        FileWriter fileWriter = null;
 //        try {
@@ -64,11 +61,11 @@ public class InputMatrixManager {
         FileTransformer.writeMatrix(users);
     }
 
-    public static String[] getLikesAndDislikes() {
+    public static String[] getLikesAndDislikes(HashMap<Integer,String> map) {
 
         List<String> likesAndDislikesList = new ArrayList<>();
 
-        Iterator it = Data.getUserBehaviour().entrySet().iterator();
+        Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());

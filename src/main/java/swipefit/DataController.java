@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 import static swipefit.Data.isInitialDataFlag;
 import static swipefit.Data.setInitialDataFlag;
 import static swipefit.InputMatrixManager.generateOtherUsersBehaviour;
@@ -41,8 +43,8 @@ public class DataController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/postBehaviour")
     public void dataFromAndroidTest(@RequestBody String json) {
-        requestHandler(json);
-        generateOtherUsersBehaviour();
+        HashMap<Integer,String> map = requestHandler(json);
+        generateOtherUsersBehaviour(map);
         runRecommendationEngine();
     }
 

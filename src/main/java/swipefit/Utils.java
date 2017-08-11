@@ -29,9 +29,10 @@ public class Utils {
         }
     }
 
-    public static void requestHandler(String json) {
-        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+    public static HashMap<Integer,String> requestHandler(String json) {
+        Type type = new TypeToken<HashMap<Integer, String>>(){}.getType();
         Gson gson = new Gson();
         Data.setUserBehaviour(gson.fromJson(json,type));
+        return gson.fromJson(json,type);
     }
 }

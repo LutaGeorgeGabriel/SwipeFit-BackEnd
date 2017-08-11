@@ -64,6 +64,40 @@ The following object is masked from ‘package:NMF’:
 > # the rank parameter to be chosen based on the number of columns (products) in matrix m
 > # it represents the number of meta-features that describe a user or a product
 > f <- nmf(m, rank = 3, method = 'lee')
-
-Timing stopped at: 0.134 0.009 0.163
-Execution halted
+> 
+> # extract the user-feature and product-feature matrices
+> a <- basis(f)
+> b <- coef(f)
+> 
+> 
+> # which are the closest other k users similar to each user
+> kn <- get.knnx(a, query = a, k = 10)
+> 
+> m_suggested <- matrix(0, nrow = N, ncol = P)
+> 
+> # which are the preferences of those kn closest neighbor users to user u ?
+> for (i in 1:N)
++ {
++     # calculate preference means for each user
++     km <- colMeans(m[setdiff(kn$nn.index[i, ], i), ])
++ 
++     # replace already seen products with 0 and unseen products with their suggested score
++     sugg <- ifelse(m[i, ] == 0.5, km, 0)
++ 
++     # sort suggested products by the decreasing score
++     m_suggested[i, ] <- order(sugg, decreasing = T)
++ }
+> 
+> 
+> # m_suggested matrix contains pre-calculated suggestions for all users.
+> # row X means that user X should be shown product IDs in this order
+> 
+> # we write the m_suggested matrix to disk so it can be pre-loaded into the frontend application
+> write.table(m_suggested, file="/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/ml_output.txt", row.names=FALSE, col.names=FALSE)
+> 
+> # we write the 10 nearest neighbours of the current user to a file
+> write.table(kn$nn.index[20, ],file="/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/src/main/resources/currentUsersNearNeighbours.txt",row.names = FALSE, col.names = FALSE)
+> 
+> proc.time()
+   user  system elapsed 
+  1.857   0.151   2.190 
