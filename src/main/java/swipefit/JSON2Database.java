@@ -74,6 +74,31 @@ public class JSON2Database {
         }
     }
 
+    public static void deleteFavoriteItemFromDB(String id) {
+        try {
+            connectDb();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Connection connection = null;
+        Statement statement = null;
+        // db parameters
+        String url = "jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db";
+        // create a connection to the database
+        String query = "DELETE FROM FAVORITES WHERE id=" + id;
+
+        try {
+            connection = DriverManager.getConnection(url);
+            statement = connection.createStatement();
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Connection connectDb() throws ClassNotFoundException,SQLException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/georgegabriel/Documents/licenta/SwipeFit-BackEnd/swipefit-database.db");
