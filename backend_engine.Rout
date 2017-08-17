@@ -100,4 +100,4 @@ The following object is masked from ‘package:NMF’:
 > 
 > proc.time()
    user  system elapsed 
-  1.497   0.149   2.126 
+  1.516   0.107   1.685 
