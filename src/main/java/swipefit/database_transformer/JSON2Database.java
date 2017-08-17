@@ -1,4 +1,6 @@
-package swipefit;
+package swipefit.database_transformer;
+
+import swipefit.product.Product;
 
 import java.sql.*;
 import java.util.ArrayList;

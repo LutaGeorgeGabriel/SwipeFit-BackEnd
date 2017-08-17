@@ -1,4 +1,6 @@
-package swipefit;
+package swipefit.machine_learning;
+
+import swipefit.utilities.FileTransformer;
 
 import java.io.IOException;
 import java.util.*;

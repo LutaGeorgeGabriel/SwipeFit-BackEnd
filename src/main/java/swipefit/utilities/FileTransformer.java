@@ -1,4 +1,4 @@
-package swipefit;
+package swipefit.utilities;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;

@@ -1,6 +1,8 @@
-package swipefit;
+package swipefit.database_transformer;
 
 import com.google.gson.Gson;
+import swipefit.machine_learning.MatrixManager;
+import swipefit.product.Product;
 
 import java.sql.*;
 import java.util.ArrayList;

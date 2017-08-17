@@ -1,4 +1,4 @@
-package swipefit;
+package swipefit.utilities;
 
 import java.util.HashMap;
 
